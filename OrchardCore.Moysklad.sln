@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06674616-D83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{ECB465BC-F318-4053-9028-9C89406EAAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchardCore.Moysklad", "src\Modules\OrchardCore.Moysklad\OrchardCore.Moysklad.csproj", "{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{90A90B28-925C-468B-AB19-2C1FD6B986E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90A90B28-925C-468B-AB19-2C1FD6B986E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90A90B28-925C-468B-AB19-2C1FD6B986E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,6 +32,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{90A90B28-925C-468B-AB19-2C1FD6B986E9} = {06674616-D833-47D8-87F6-0EACBF813135}
 		{ECB465BC-F318-4053-9028-9C89406EAAF1} = {06674616-D833-47D8-87F6-0EACBF813135}
+		{2DE963E8-A7F3-4F20-9518-8C7CEBE86D90} = {ECB465BC-F318-4053-9028-9C89406EAAF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8FB074A2-A237-4E8C-8511-CA39E91902F4}
