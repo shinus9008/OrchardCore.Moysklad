@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confiti.MoySklad.Remap.Sdk" Version="0.18.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.7.0" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.7.0" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.7.0" />
