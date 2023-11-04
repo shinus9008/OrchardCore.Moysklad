@@ -10,6 +10,12 @@ namespace OrchardCore.Moysklad
         #region Access_To_Moysklad_Api
 
         /// <summary>
+        /// Provides access to Assortment Api
+        /// </summary>
+        public static Permission AccessToAssortmentApi { get; } =
+            new Permission("AccessToAssortmentApi", "Provides access to Assortment Api");
+
+        /// <summary>
         /// Provides access to Product Folder Api
         /// </summary>
         public static Permission AccessToProductFolderApi { get; } =
@@ -29,6 +35,7 @@ namespace OrchardCore.Moysklad
                         ManageMoyskladSettings,
 
                         // Moysklad API
+                        AccessToAssortmentApi,
                         AccessToProductFolderApi
                     },
                 }
@@ -42,6 +49,7 @@ namespace OrchardCore.Moysklad
                 ManageMoyskladSettings,
 
                 // Moysklad API
+                AccessToAssortmentApi,
                 AccessToProductFolderApi,
             }
             .AsEnumerable());
