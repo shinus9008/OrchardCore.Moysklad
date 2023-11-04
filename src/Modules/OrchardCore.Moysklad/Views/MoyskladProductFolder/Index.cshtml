@@ -14,7 +14,13 @@
                         <h6>@productFolder.Name</h6>
                     </div>
 
-                    <button asp-action="" type="button" class="btn btn-primary">Создать Ассоритимент</button>
+                    <a asp-route-hRef="@productFolder.Meta.Href"
+                       asp-action="CreateQuery"
+                       asp-controller="MoyskladAssortment"
+                       type="button"
+                       class="btn btn-primary">
+                        Создать Ассоритимент Query
+                    </a>
                 </div>
             </div>
         }
