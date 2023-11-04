@@ -14,6 +14,7 @@ using OrchardCore.Moysklad.Configuration;
 using OrchardCore.Moysklad.Controllers;
 using OrchardCore.Moysklad.Drivers;
 using OrchardCore.Moysklad.Handlers;
+using OrchardCore.Moysklad.Migrations;
 using OrchardCore.Moysklad.Models;
 using OrchardCore.Moysklad.Settings;
 using OrchardCore.Moysklad.ViewModels;
@@ -61,7 +62,7 @@ namespace OrchardCore.Moysklad
                 .AddHandler<MoyskladPartHandler>();
 
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, MoyskladPartSettingsDisplayDriver>();
-            services.AddDataMigration<Migrations>();
+            services.AddDataMigration<Migration>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

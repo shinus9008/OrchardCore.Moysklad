@@ -2,13 +2,13 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 
-namespace OrchardCore.Moysklad
+namespace OrchardCore.Moysklad.Migrations
 {
-    public class Migrations : DataMigration
+    public class Migration : DataMigration
     {
         IContentDefinitionManager _contentDefinitionManager;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager)
+        public Migration(IContentDefinitionManager contentDefinitionManager)
         {
             _contentDefinitionManager = contentDefinitionManager;
         }
