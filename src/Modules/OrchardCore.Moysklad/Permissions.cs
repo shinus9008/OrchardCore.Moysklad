@@ -4,8 +4,18 @@ namespace OrchardCore.Moysklad
 {
     public class Permissions : IPermissionProvider
     {
-        public static Permission ManageMoyskladSettings =
+        public static Permission ManageMoyskladSettings { get; } =
             new Permission("ManageMoyskladSettings", "Manage Moysklad Settings");
+
+        #region Access_To_Moysklad_Api
+
+        /// <summary>
+        /// Provides access to Product Folder Api
+        /// </summary>
+        public static Permission AccessToProductFolderApi { get; } =
+            new Permission("AccessToProductFolderApi", "Provides access to Product Folder Api");
+
+        #endregion
 
         public IEnumerable<PermissionStereotype> GetDefaultStereotypes()
         {
@@ -14,7 +24,13 @@ namespace OrchardCore.Moysklad
                 new PermissionStereotype
                 {
                     Name = "Administrator",
-                    Permissions = new[] { ManageMoyskladSettings },
+                    Permissions = new[] 
+                    { 
+                        ManageMoyskladSettings,
+
+                        // Moysklad API
+                        AccessToProductFolderApi
+                    },
                 }
             };
         }
@@ -24,6 +40,9 @@ namespace OrchardCore.Moysklad
             return Task.FromResult(new[]
             {
                 ManageMoyskladSettings,
+
+                // Moysklad API
+                AccessToProductFolderApi,
             }
             .AsEnumerable());
         }

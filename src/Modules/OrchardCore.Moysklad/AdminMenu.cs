@@ -31,6 +31,15 @@ namespace OrchardCore.Moysklad
                         )));
 
 
+            // MenuItem: Access to Product Folder Api
+            builder
+                .Add(T["Moysklad"], moysklad => moysklad
+                .Add(T["Product Folder"], productFolder => productFolder
+                    .Permission(Permissions.AccessToProductFolderApi)
+                    .Action("Index", "MoyskladProductFolder", new { area = "OrchardCore.Moysklad" })
+                    .LocalNav()));
+
+
             return Task.CompletedTask;
         }
     }
