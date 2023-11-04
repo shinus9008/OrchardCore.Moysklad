@@ -1,5 +1,6 @@
 ﻿using Confiti.MoySklad.Remap.Api;
 using Confiti.MoySklad.Remap.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OrchardCore.Admin;
@@ -16,15 +17,24 @@ namespace OrchardCore.Moysklad.Controllers
     public class MoyskladProductFolderController : Controller
     {
         private readonly MoyskladSettings options;
+        private readonly IAuthorizationService _authorizationService;
 
         public MoyskladProductFolderController(
-            IOptions<MoyskladSettings> options)
+            IOptions<MoyskladSettings> options,
+            IAuthorizationService authorizationService)
         {
             this.options = options.Value;
+            _authorizationService = authorizationService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
+            // Проверка разрешений!
+            if (!await _authorizationService.AuthorizeAsync(User, Permissions.AccessToProductFolderApi))
+            {
+                return Forbid();
+            }
+
             var api = GetApi();
 
             try
