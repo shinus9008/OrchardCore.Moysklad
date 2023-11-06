@@ -6,6 +6,11 @@ using OrchardCore.Modules.Manifest;
     Website = "https://orchardcore.net",
     Version = "0.0.1",
     Description = "OrchardCore.Moysklad",
-    Dependencies = new[] { "OrchardCore.Contents" },
+    Dependencies = new[] 
+    { 
+        // Content Management
+        "OrchardCore.Contents",
+        "OrchardCore.Title",
+    },
     Category = "Content Management"
 )]
