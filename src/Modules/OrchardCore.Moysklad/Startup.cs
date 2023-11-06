@@ -87,21 +87,23 @@ namespace OrchardCore.Moysklad
 
 
 
-            var assortmentControllerName = typeof(MoyskladAssortmentController).ControllerName();
+            var assortmentControllerName = typeof(AssortmentController).ControllerName();
 
 
             routes.MapAreaControllerRoute(
                 name: "CreateQuery",
                 areaName: "OrchardCore.Moysklad",
                 pattern: _adminOptions.AdminUrlPrefix + "/MoyskladAssortment/CreateQuery/{hRef}",
-                defaults: new { controller = assortmentControllerName, action = nameof(MoyskladAssortmentController.CreateQuery) });
+                defaults: new { controller = assortmentControllerName, action = nameof(AssortmentController.CreateQuery) });
 
 
+
+            
             routes.MapAreaControllerRoute(
-                name: "Query",
+                name: "AssortmentList",
                 areaName: "OrchardCore.Moysklad",
-                pattern: _adminOptions.AdminUrlPrefix + "/MoyskladAssortment/Query/{id}",
-                defaults: new { controller = assortmentControllerName, action = nameof(MoyskladAssortmentController.Query) });
+                pattern: _adminOptions.AdminUrlPrefix + "/Assortment/List/{id}",
+                defaults: new { controller = assortmentControllerName, action = nameof(AssortmentController.List) });
         }
     }
 }

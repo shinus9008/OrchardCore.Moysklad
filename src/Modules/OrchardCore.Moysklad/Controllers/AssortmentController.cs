@@ -9,7 +9,6 @@ using OrchardCore.ContentManagement.Display;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.Moysklad.Configuration;
 using OrchardCore.Moysklad.Constants;
-using OrchardCore.Moysklad.Indexes;
 using OrchardCore.Moysklad.Models;
 using System.Net;
 using YesSql;
@@ -20,7 +19,7 @@ namespace OrchardCore.Moysklad.Controllers
     /// Provides access to Assortment Api
     /// </summary>
     [Admin]
-    public class MoyskladAssortmentController : Controller
+    public class AssortmentController : Controller
     {
         private readonly MoyskladSettings _options;
         private readonly YesSql.ISession _session;
@@ -29,7 +28,7 @@ namespace OrchardCore.Moysklad.Controllers
         private readonly IContentItemDisplayManager _contentItemDisplayManager;
         private readonly IUpdateModelAccessor _updateModelAccessor;
 
-        public MoyskladAssortmentController(
+        public AssortmentController(
             IAuthorizationService authorizationService,
             IContentManager contentManager,
             ISession session,
@@ -72,20 +71,7 @@ namespace OrchardCore.Moysklad.Controllers
         }
 
         
-        private AssortmentApi GetApi()
-        {
-            var httpClientHandler = new HttpClientHandler()
-            {
-                AutomaticDecompression = DecompressionMethods.GZip
-            };
-
-            var assortmentApi = new AssortmentApi(new HttpClient(httpClientHandler), _options.Credentials);
-
-
-
-
-            return assortmentApi;
-        }
+        
 
 
 
@@ -114,7 +100,14 @@ namespace OrchardCore.Moysklad.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Query(string contentItemId)
+
+
+
+
+        /// <summary>
+        /// Запрашивает асортимент товара и выводит результат в виде списка
+        /// </summary>        
+        public async Task<IActionResult> List(string contentItemId)
         {
             // Проверяем аргументы
             if (contentItemId == null)
@@ -187,8 +180,20 @@ namespace OrchardCore.Moysklad.Controllers
 
 
 
+        private AssortmentApi GetApi()
+        {
+            var httpClientHandler = new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip
+            };
+
+            var assortmentApi = new AssortmentApi(new HttpClient(httpClientHandler), _options.Credentials);
 
 
+
+
+            return assortmentApi;
+        }
         private AssortmentApiParameterBuilder? GetQueryFor(MoyskladAssortmentQueryPart queryPart)
         {
             if (queryPart.ProductFolder == null)
