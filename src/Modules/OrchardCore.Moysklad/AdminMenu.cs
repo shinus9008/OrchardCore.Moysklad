@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
+using OrchardCore.Moysklad.Controllers;
 using OrchardCore.Moysklad.Drivers;
+using OrchardCore.Mvc.Core.Utilities;
 using OrchardCore.Navigation;
 
 namespace OrchardCore.Moysklad
@@ -21,6 +23,8 @@ namespace OrchardCore.Moysklad
                 return Task.CompletedTask;
             }
 
+            var productFolderControllerName = typeof(ProductFolderController).ControllerName();
+
             builder
                 .Add(T["Security"], security => security
                     .Add(T["Settings"], settings => settings
@@ -36,7 +40,7 @@ namespace OrchardCore.Moysklad
                 .Add(T["Moysklad"], moysklad => moysklad
                 .Add(T["Product Folder"], productFolder => productFolder
                     .Permission(Permissions.AccessToProductFolderApi)
-                    .Action("Index", "MoyskladProductFolder", new { area = "OrchardCore.Moysklad" })
+                    .Action(nameof(ProductFolderController.List), productFolderControllerName, new { area = "OrchardCore.Moysklad" })
                     .LocalNav()));
 
 

@@ -14,12 +14,12 @@ namespace OrchardCore.Moysklad.Controllers
     /// Provides access to Product Folder Api
     /// </summary>
     [Admin]
-    public class MoyskladProductFolderController : Controller
+    public class ProductFolderController : Controller
     {
         private readonly MoyskladSettings options;
         private readonly IAuthorizationService _authorizationService;
 
-        public MoyskladProductFolderController(
+        public ProductFolderController(
             IOptions<MoyskladSettings> options,
             IAuthorizationService authorizationService)
         {
@@ -27,7 +27,11 @@ namespace OrchardCore.Moysklad.Controllers
             _authorizationService = authorizationService;
         }
 
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Запрашивает со склада папки и отображет их
+        /// </summary>   
+        [HttpGet]
+        public async Task<IActionResult> List()
         {
             // Проверка разрешений!
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AccessToProductFolderApi))
@@ -41,7 +45,7 @@ namespace OrchardCore.Moysklad.Controllers
             {
                 var response = await api.GetAllAsync();
 
-                var viewModel = new MoyskladProductFolderViewModel()
+                var viewModel = new ProductFolderListViewModel()
                 {
                     ProductFolders = response.Payload.Rows
                 };

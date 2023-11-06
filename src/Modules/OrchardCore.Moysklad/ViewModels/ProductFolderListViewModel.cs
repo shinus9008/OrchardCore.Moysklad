@@ -2,7 +2,7 @@
 
 namespace OrchardCore.Moysklad.ViewModels
 {
-    public class MoyskladProductFolderViewModel
+    public class ProductFolderListViewModel
     {
         public required IReadOnlyList<ProductFolder> ProductFolders { get; init; }
     }
