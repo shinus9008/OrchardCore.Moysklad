@@ -36,13 +36,22 @@ namespace OrchardCore.Moysklad
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            //
-            services.AddTransient<IConfigureOptions<MoyskladSettings>, MoyskladSettingsConfiguration>();
+            services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddScoped<IPermissionProvider, Permissions>();
 
             //
             services.AddScoped<IDisplayDriver<ISite>, MoyskladSettings_Credentials_DisplayDriver>();
-            services.AddScoped<INavigationProvider, AdminMenu>();
-            services.AddScoped<IPermissionProvider, Permissions>();
+
+            // Options:
+            services.AddTransient<IConfigureOptions<MoyskladSettings>, MoyskladSettingsConfiguration>();
+
+            // Content Parts
+            services.AddContentPart<MoyskladAssortmentQueryPart>()
+                    .UseDisplayDriver<AssortmentQueryPartDisplayDriver>();
+
+            // Migrations:
+            services.AddDataMigration<MigrationAssortmentQuery>();
+            services.AddDataMigration<MigrationAssortmentQueryPart>();
 
 
 
@@ -86,6 +95,13 @@ namespace OrchardCore.Moysklad
                 areaName: "OrchardCore.Moysklad",
                 pattern: _adminOptions.AdminUrlPrefix + "/MoyskladAssortment/CreateQuery/{hRef}",
                 defaults: new { controller = assortmentControllerName, action = nameof(MoyskladAssortmentController.CreateQuery) });
+
+
+            routes.MapAreaControllerRoute(
+                name: "Query",
+                areaName: "OrchardCore.Moysklad",
+                pattern: _adminOptions.AdminUrlPrefix + "/MoyskladAssortment/Query/{id}",
+                defaults: new { controller = assortmentControllerName, action = nameof(MoyskladAssortmentController.Query) });
         }
     }
 }
