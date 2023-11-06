@@ -1,0 +1,70 @@
+{
+  "name": "OrchardCore.Moysklad.Content.Menu",
+  "displayName": "Orchard Core Moysklad - Content - Menu",
+  "description": "Settings and contents required only for development environment.",
+  "author": "GovoruhinAA",
+  "website": "https://github.com/shinus9008/OrchardCore.Moysklad",
+  "version": "1.0",
+  "issetuprecipe": true,
+  "categories": [ "orchardcoremoysklad" ],
+  "tags": [ "menu" ],
+
+  "steps": [
+    {
+      "name": "AdminMenu",
+      "data": [
+        {
+          "Id": "a76ddca7e82646aab6040f6e7ee9d813",
+          "Name": "MoyskladMenu",
+          "Enabled": true,
+          "MenuItems": [
+            {
+              "$type": "OrchardCore.AdminMenu.AdminNodes.PlaceholderAdminNode, OrchardCore.AdminMenu",
+              "LinkText": "Moysklad",
+              "IconClass": "fas fa-cloud",
+              "PermissionNames": [],
+              "UniqueId": "901f307920de4e6c8019dc70bdc59456",
+              "Enabled": true,
+              "Text": null,
+              "Id": null,
+              "Href": null,
+              "Url": null,
+              "Position": null,
+              "Priority": 0,
+              "LinkToFirstChild": true,
+              "LocalNav": false,
+              "Culture": null,
+              "Items": [
+                {
+                  "$type": "OrchardCore.Contents.AdminNodes.ContentTypesAdminNode, OrchardCore.Contents",
+                  "ShowAll": false,
+                  "IconClass": null,
+                  "ContentTypes": [
+                    {
+                      "ContentTypeId": "MoyskladAssortmentQuery",
+                      "IconClass": "fab fa-acquisitions-incorporated"
+                    }
+                  ],
+                  "UniqueId": "9389e9ceb20541ff8edc32dc778c0b71",
+                  "Enabled": true,
+                  "Text": null,
+                  "Id": null,
+                  "Href": null,
+                  "Url": null,
+                  "Position": null,
+                  "Priority": 0,
+                  "LinkToFirstChild": true,
+                  "LocalNav": false,
+                  "Culture": null,
+                  "Items": [],
+                  "Classes": []
+                }
+              ],
+              "Classes": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

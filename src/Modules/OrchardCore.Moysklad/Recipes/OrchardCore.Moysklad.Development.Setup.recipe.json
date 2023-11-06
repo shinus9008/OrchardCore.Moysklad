@@ -1,0 +1,86 @@
+{
+  "name": "OrchardCore.Moysklad.Development.Setup",
+  "displayName": "Orchard Core Moysklad - Development",
+  "description": "Settings and contents required only for development environment.",
+  "author": "GovoruhinAA",
+  "website": "https://github.com/shinus9008/OrchardCore.Moysklad",
+  "version": "1.0",
+  "issetuprecipe": true,
+  "categories": [ "orchardcoremoysklad" ],
+  "tags": [ "HideFromSetupScreen" ],
+
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        // SaaS
+        "OrchardCore.Admin",
+        "OrchardCore.Diagnostics",
+        "OrchardCore.DynamicCache",
+        "OrchardCore.Features",
+        "OrchardCore.HomeRoute",
+        "OrchardCore.Navigation",
+        "OrchardCore.Recipes",
+        "OrchardCore.Resources",
+        "OrchardCore.Roles",
+        "OrchardCore.Security",
+        "OrchardCore.Settings",
+        "OrchardCore.Themes",
+        "OrchardCore.Users",
+
+        // Content Management
+        "OrchardCore.AdminMenu",
+        "OrchardCore.Alias",
+        "OrchardCore.Autoroute",
+        "OrchardCore.ContentFields",
+        "OrchardCore.ContentPreview",
+        "OrchardCore.ContentTypes",
+        "OrchardCore.Contents",
+        "OrchardCore.CustomSettings",
+        "OrchardCore.Deployment",
+        "OrchardCore.Deployment.Remote",
+        "OrchardCore.Feeds",
+        "OrchardCore.Flows",
+        "OrchardCore.Html",
+        "OrchardCore.Indexing",
+        "OrchardCore.Layers",
+        "OrchardCore.Lists",
+        "OrchardCore.Localization",
+        "OrchardCore.Markdown",
+        "OrchardCore.Media",
+        "OrchardCore.Menu",
+        "OrchardCore.Placements",
+        "OrchardCore.Queries",
+        "OrchardCore.Queries.Sql",
+        "OrchardCore.Rules",
+        "OrchardCore.Shortcodes.Templates",
+        "OrchardCore.Taxonomies",
+        "OrchardCore.Templates",
+        "OrchardCore.Title",
+        "OrchardCore.Users.CustomUserSettings",
+        "OrchardCore.Widgets",
+
+        "OrchardCore.Moysklad",
+
+        // Themes
+        "TheTheme",
+        "TheAdmin",
+        "SafeMode"
+      ]
+    },
+    {
+      "name": "themes",
+      "admin": "TheAdmin",
+      "site": "TheTheme"
+    },
+    {
+      "name": "recipes",
+      "Values": [
+        {
+          "executionid": "OrchardCore.Moysklad",
+          "name": "OrchardCore.Moysklad.Content.Menu"
+        }
+      ]
+    }
+  ]
+}
