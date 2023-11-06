@@ -2,7 +2,7 @@
 
 namespace OrchardCore.Moysklad.Configuration
 {
-    public class MoyskladSettings
+    public class MoyskladSettings //TODO: IValidatableObject
     {
         public MoySkladCredentials Credentials { get; set; } = new MoySkladCredentials();
     }
