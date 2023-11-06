@@ -1,4 +1,4 @@
-﻿@model ProductFolderListViewModel
+@model ProductFolderListViewModel
 @{
     //TODO: Добавить страницы!
     //TODO: Добавить локализацию!
@@ -15,12 +15,10 @@
                     </div>
 
                     <form asp-action="CreateAsFolder" asp-controller="Assortment" method="post">
-                        <button class="btn btn-primary">@T["Create Query"]</button>
+                        <button class="btn btn-primary">@T["Create Assortment Query"]</button>
                         <input type="hidden" name="hRef" value="@productFolder.Meta.Href">
                     </form>
-
-                    @Html.ActionLink("Создать Ассоритимент Query", "Create", "Assortment", new { hRef = productFolder.Meta.Href } )
-                    <a asp-route-hRef="@productFolder.Meta.Href" asp-action="Create" asp-controller="Assortment" type="button" class="btn btn-primary">Создать Ассоритимент Query</a>
+                                        
                 </div>
             </div>
         }
