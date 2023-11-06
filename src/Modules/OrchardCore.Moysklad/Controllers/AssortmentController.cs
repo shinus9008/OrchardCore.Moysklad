@@ -70,39 +70,45 @@ namespace OrchardCore.Moysklad.Controllers
             }
         }
 
-        
-        
 
-
-
+        /// <summary>
+        /// Создает запрос асортимена товаров из конкретной папки!
+        /// </summary>        
         public async Task<IActionResult> CreateQuery(string hRef)
         {
-            // Permissions:
+            if (string.IsNullOrWhiteSpace(hRef))
+            {
+                return NotFound();
+            }
+
+            // Проверяем разрешение
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AccessToAssortmentApi))
             {
                 return this.ChallengeOrForbid();
             }
 
-            if(!ModelState.IsValid)
-            {
-                //?
-                return Forbid();
-            }
-            
-
+            // Создаем элемент контента
             var contentItem = await _contentManager.NewAsync(DefineContentType.MoyskladAssortmentQuery);
+            if (contentItem == null)
+            {
+                return NotFound();
+            }
+
+            // Элемент контента должен содержать Query Part
+            var queryPart = contentItem.As<MoyskladAssortmentQueryPart>();
+            if (queryPart == null)
+            {
+                return NotFound();
+            }
+            // Query Part Config
+            queryPart.ProductFolder = hRef;
 
             // Добавляем обертку
-            // Добавляем обертку
+            
             dynamic model = await _contentItemDisplayManager.BuildEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
 
-
-            return View(model);
+            return View("Create", model);
         }
-
-
-
-
 
         /// <summary>
         /// Запрашивает асортимент товара и выводит результат в виде списка
