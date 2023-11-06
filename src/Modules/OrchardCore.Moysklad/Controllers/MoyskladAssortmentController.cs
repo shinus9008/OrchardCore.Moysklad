@@ -9,7 +9,8 @@ using OrchardCore.ContentManagement.Display;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.Moysklad.Configuration;
 using OrchardCore.Moysklad.Constants;
-using OrchardCore.Moysklad.ViewModels;
+using OrchardCore.Moysklad.Indexes;
+using OrchardCore.Moysklad.Models;
 using System.Net;
 using YesSql;
 
@@ -22,7 +23,7 @@ namespace OrchardCore.Moysklad.Controllers
     public class MoyskladAssortmentController : Controller
     {
         private readonly MoyskladSettings _options;
-        private readonly ISession _session;
+        private readonly YesSql.ISession _session;
         private readonly IAuthorizationService _authorizationService;
         private readonly IContentManager _contentManager;
         private readonly IContentItemDisplayManager _contentItemDisplayManager;
@@ -50,7 +51,7 @@ namespace OrchardCore.Moysklad.Controllers
             var api = GetApi();
 
             // Получаем запрос
-            var query = GetAssortmentQuery();
+            var query = GetQueryFor(null);
 
             // TODO: Запрос постраничный!
 
@@ -70,16 +71,7 @@ namespace OrchardCore.Moysklad.Controllers
             }
         }
 
-        private AssortmentApiParameterBuilder GetAssortmentQuery()
-        {
-            // Запрос на получение товаров и услуг
-            var query = new AssortmentApiParameterBuilder();
-
-            // Конфигурация запроса
-            query.Parameter(x => x.ProductFolder).Should().Be("");
-
-            return query;
-        }
+        
         private AssortmentApi GetApi()
         {
             var httpClientHandler = new HttpClientHandler()
@@ -124,27 +116,39 @@ namespace OrchardCore.Moysklad.Controllers
 
         public async Task<IActionResult> Query(string contentItemId)
         {
-            // Permissions:
-            if (!await _authorizationService.AuthorizeAsync(User, Permissions.AccessToAssortmentApi))
-            {
-                return this.ChallengeOrForbid();
-            }
-
+            // Проверяем аргументы
             if (contentItemId == null)
             {
                 return NotFound();
             }
 
-            var versionOptions = VersionOptions.Latest;
+            // Проверяем разрешение
+            if (!await _authorizationService.AuthorizeAsync(User, Permissions.AccessToAssortmentApi))
+            {
+                return this.ChallengeOrForbid();
+            }
 
-            var contentItem = await _contentManager.GetAsync(contentItemId, versionOptions);
-
+            // Запрашиваем элемент контента
+            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
             if (contentItem == null)
             {
                 return NotFound();
             }
 
-            var query = GetAssortmentQuery();
+            // Элемент контента должен содержать Query Part
+            var queryPart = contentItem.As<MoyskladAssortmentQueryPart>();
+            if (queryPart == null)
+            {
+                return NotFound();
+            }
+
+            // Создаем запрос
+            var query = GetQueryFor(queryPart);
+            if (query == null) 
+            {
+                return NotFound();
+            }
+
             var api = GetApi();
 
             try
@@ -174,8 +178,29 @@ namespace OrchardCore.Moysklad.Controllers
 
                 throw ex;
             }
+        }
 
-            return Forbid();
+
+
+
+
+
+
+
+
+
+        private AssortmentApiParameterBuilder? GetQueryFor(MoyskladAssortmentQueryPart queryPart)
+        {
+            if (queryPart.ProductFolder == null)
+                return null;
+
+            // Запрос на получение товаров и услуг
+            var query = new AssortmentApiParameterBuilder();
+
+            // Запрашиваем сортимент из папки!
+            query.Parameter(x => x.ProductFolder).Should().Be(queryPart.ProductFolder);
+
+            return query;
         }
     }
 }
