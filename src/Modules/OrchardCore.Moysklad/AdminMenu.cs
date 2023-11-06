@@ -30,7 +30,7 @@ namespace OrchardCore.Moysklad
                             .LocalNav()
                         )));
 
-
+            //TODO: Add setting validation!
             // MenuItem: Access to Product Folder Api
             builder
                 .Add(T["Moysklad"], moysklad => moysklad
