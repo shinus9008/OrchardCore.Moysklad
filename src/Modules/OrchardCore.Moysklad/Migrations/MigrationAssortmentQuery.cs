@@ -18,6 +18,7 @@ namespace OrchardCore.Moysklad.Migrations
         public int Create()
         {
             _contentDefinitionManager.AlterTypeDefinition(DefineContentType.MoyskladAssortmentQuery, type => type
+                .Draftable()
                 .Securable()
                 .DisplayedAs("Assortment Query")
                 .WithDescription("Moysklad Assortment Query")

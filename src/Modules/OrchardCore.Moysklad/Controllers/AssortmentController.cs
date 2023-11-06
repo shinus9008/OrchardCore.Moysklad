@@ -5,43 +5,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OrchardCore.Admin;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Display;
-using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.Moysklad.Configuration;
 using OrchardCore.Moysklad.Constants;
 using OrchardCore.Moysklad.Models;
 using System.Net;
-using YesSql;
 
 namespace OrchardCore.Moysklad.Controllers
 {
     /// <summary>
     /// Provides access to Assortment Api
     /// </summary>
-    [Admin]
+    [Admin]    
     public class AssortmentController : Controller
     {
-        private readonly MoyskladSettings _options;
-        private readonly YesSql.ISession _session;
+        private readonly MoyskladSettings _options;        
         private readonly IAuthorizationService _authorizationService;
-        private readonly IContentManager _contentManager;
-        private readonly IContentItemDisplayManager _contentItemDisplayManager;
-        private readonly IUpdateModelAccessor _updateModelAccessor;
+        private readonly IContentManager _contentManager;      
 
         public AssortmentController(
             IAuthorizationService authorizationService,
-            IContentManager contentManager,
-            ISession session,
-            IOptions<MoyskladSettings> options,
-            IContentItemDisplayManager contentItemDisplayManager,
-            IUpdateModelAccessor updateModelAccessor)
+            IContentManager contentManager,         
+            IOptions<MoyskladSettings> options)
         {
-            _options = options.Value;
-            _session = session;
+            _options = options.Value;          
             _authorizationService = authorizationService;
-            _contentManager = contentManager;
-            _contentItemDisplayManager = contentItemDisplayManager;
-            _updateModelAccessor = updateModelAccessor;
+            _contentManager = contentManager;          
         }
 
         public async void Uploading() 
@@ -73,8 +61,9 @@ namespace OrchardCore.Moysklad.Controllers
 
         /// <summary>
         /// Создает запрос асортимена товаров из конкретной папки!
-        /// </summary>        
-        public async Task<IActionResult> CreateQuery(string hRef)
+        /// </summary>  
+        [HttpPost]        
+        public async Task<IActionResult> CreateAsFolder(string hRef)
         {
             if (string.IsNullOrWhiteSpace(hRef))
             {
@@ -88,31 +77,34 @@ namespace OrchardCore.Moysklad.Controllers
             }
 
             // Создаем элемент контента
-            var contentItem = await _contentManager.NewAsync(DefineContentType.MoyskladAssortmentQuery);
-            if (contentItem == null)
+            var newContentItem = await _contentManager.NewAsync(DefineContentType.MoyskladAssortmentQuery);
+            if (newContentItem == null)
             {
                 return NotFound();
             }
 
             // Элемент контента должен содержать Query Part
-            var queryPart = contentItem.As<MoyskladAssortmentQueryPart>();
+            var queryPart = newContentItem.As<MoyskladAssortmentQueryPart>();
             if (queryPart == null)
             {
                 return NotFound();
             }
+
             // Query Part Config
             queryPart.ProductFolder = hRef;
+            newContentItem.Apply(queryPart);
+            //TODO: Add Title part Config
 
-            // Добавляем обертку
             
-            dynamic model = await _contentItemDisplayManager.BuildEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
+            await _contentManager.CreateAsync(newContentItem, VersionOptions.Draft);
 
-            return View("Create", model);
+            return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = newContentItem.ContentItemId });
         }
 
         /// <summary>
         /// Запрашивает асортимент товара и выводит результат в виде списка
-        /// </summary>        
+        /// </summary> 
+        [HttpGet]
         public async Task<IActionResult> List(string contentItemId)
         {
             // Проверяем аргументы
@@ -178,13 +170,6 @@ namespace OrchardCore.Moysklad.Controllers
                 throw ex;
             }
         }
-
-
-
-
-
-
-
 
         private AssortmentApi GetApi()
         {

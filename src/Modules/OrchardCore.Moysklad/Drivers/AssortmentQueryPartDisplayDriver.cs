@@ -25,7 +25,9 @@ namespace OrchardCore.Moysklad.Drivers
             T = stringLocalizer;
         }
 
-        public override async Task<IDisplayResult> DisplayAsync(MoyskladAssortmentQueryPart part, BuildPartDisplayContext context)
+        public override async Task<IDisplayResult> DisplayAsync(
+            MoyskladAssortmentQueryPart part, 
+            BuildPartDisplayContext context)
         {
             var user = _httpContextAccessor.HttpContext?.User;
 
@@ -34,23 +36,23 @@ namespace OrchardCore.Moysklad.Drivers
                 return null!;
             }
 
-           // var results = new List<IDisplayResult>();
-
-
-            //return Combine(results.ToArray())
-
             return 
-                Initialize<AssortmentQueryPartViewModel>(GetDisplayShapeType(context), model =>
+                Initialize<MoyskladAssortmentQueryPartViewModel>(GetDisplayShapeType(context), model =>
                 {
+                    model.ProductFolder = part.ProductFolder;
+
+                    //
                     model.AssortmentQueryPart = part;
                     model.ContentItem         = part.ContentItem;
                 })
-                .Location("Detail",  "Content:10")
-                .Location("Summary", "Content:10")
+                .Location("Detail",       "Content:10")
+                .Location("Summary",      "Content:10")
                 .Location("SummaryAdmin", "Actions:20");
         }
 
-        public override async Task<IDisplayResult> EditAsync(MoyskladAssortmentQueryPart part, BuildPartEditorContext context)
+        public override async Task<IDisplayResult> EditAsync(
+            MoyskladAssortmentQueryPart part, 
+            BuildPartEditorContext context)
         {
             var user = _httpContextAccessor.HttpContext?.User;
 
@@ -60,14 +62,20 @@ namespace OrchardCore.Moysklad.Drivers
             }
 
             return
-                Initialize<AssortmentQueryPartViewModel>(GetEditorShapeType(context), model =>
+                Initialize<MoyskladAssortmentQueryPartViewModel>(GetEditorShapeType(context), model =>
                 {
+                    model.ProductFolder = part.ProductFolder;
+
+                    //
                     model.AssortmentQueryPart = part;
-                    model.ContentItem = part.ContentItem;
+                    model.ContentItem         = part.ContentItem;
                 });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(MoyskladAssortmentQueryPart part, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(
+            MoyskladAssortmentQueryPart part, 
+            IUpdateModel updater, 
+            UpdatePartEditorContext context)
         {
             var user = _httpContextAccessor.HttpContext?.User;
 
@@ -76,7 +84,9 @@ namespace OrchardCore.Moysklad.Drivers
                 return null!;
             }
 
-            return await base.UpdateAsync(part, updater, context);
+            await updater.TryUpdateModelAsync(part, Prefix, t => t.ProductFolder);
+
+            return Edit(part);
         }
     }
 }

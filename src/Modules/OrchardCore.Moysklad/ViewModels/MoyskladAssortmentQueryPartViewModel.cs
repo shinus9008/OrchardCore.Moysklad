@@ -4,9 +4,11 @@ using OrchardCore.Moysklad.Models;
 
 namespace OrchardCore.Moysklad.ViewModels
 {
-    public class AssortmentQueryPartViewModel
+    public class MoyskladAssortmentQueryPartViewModel
     {
-        //TODO: Добавить!
+        //TODO:  Проблема с кодировками!?
+        public string? ProductFolder { get; set; }
+
 
         [BindNever]
         public ContentItem ContentItem { get; internal set; }

@@ -91,14 +91,12 @@ namespace OrchardCore.Moysklad
 
 
             routes.MapAreaControllerRoute(
-                name: "CreateQuery",
+                name: "AssortmentCreate",
                 areaName: "OrchardCore.Moysklad",
-                pattern: _adminOptions.AdminUrlPrefix + "/MoyskladAssortment/CreateQuery/{hRef}",
-                defaults: new { controller = assortmentControllerName, action = nameof(AssortmentController.CreateQuery) });
+                pattern: _adminOptions.AdminUrlPrefix + "/Assortment/CreateAsFolder",
+                defaults: new { controller = assortmentControllerName, action = nameof(AssortmentController.CreateAsFolder) });
 
 
-
-            
             routes.MapAreaControllerRoute(
                 name: "AssortmentList",
                 areaName: "OrchardCore.Moysklad",

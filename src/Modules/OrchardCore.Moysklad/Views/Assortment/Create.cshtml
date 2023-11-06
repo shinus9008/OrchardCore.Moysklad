@@ -12,12 +12,11 @@
 
 <zone Name="Title"><h1>@RenderTitleSegments(T["New {0}", typeDisplayName])</h1></zone>
 
-<form asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data" class="no-multisubmit">
+<form asp-action="Create" asp-controller="Assortment" method="post" enctype="multipart/form-data" class="no-multisubmit">
     @Html.ValidationSummary()    
     @await DisplayAsync(Model)
     
-    <input type="hidden" name="MenuContentItemId" value="@Model.MenuContentItemId" />
-    <input type="hidden" name="MenuItemId" value="@Model.MenuItemId" />
+    <input type="hidden" name="contentItemId" value="@contentItem.ContentItemId" />
 </form>
 
 

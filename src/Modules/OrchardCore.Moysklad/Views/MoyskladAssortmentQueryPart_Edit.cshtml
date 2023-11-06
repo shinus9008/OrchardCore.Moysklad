@@ -1,3 +1,15 @@
-﻿@model AssortmentQueryPartViewModel
+﻿@model MoyskladAssortmentQueryPartViewModel
+
+@using OrchardCore.Moysklad.Models
+@using OrchardCore.Moysklad.ViewModels
+@using OrchardCore
 
 <h1>TODO:MoyskladAssortmentQueryPart__Edit</h1>
+
+<div class="@Orchard.GetWrapperCssClasses()" asp-validation-class-for="ProductFolder">
+    <label asp-for="ProductFolder" class="@Orchard.GetLabelCssClasses()">@T["Title"]</label>
+    <div class="@Orchard.GetEndCssClasses()">
+        <input asp-for="ProductFolder" class="form-control content-preview-text content-caption-text" autofocus="autofocus" />
+        <span asp-validation-for="ProductFolder"></span>
+    </div>
+</div>
