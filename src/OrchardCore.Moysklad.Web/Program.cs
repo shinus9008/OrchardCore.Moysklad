@@ -9,8 +9,18 @@ builder.Host.UseSerilog((hostingContext, configBuilder) =>
         .Enrich.FromLogContext();
     });
 
+
+var configuration = builder.Configuration;
+
 builder.Services
-    .AddOrchardCms()
+    .AddSingleton(configuration)
+    .AddOrchardCms(builder =>
+    {
+        if (!configuration.IsUITesting())
+        {
+            builder.AddSetupFeatures("OrchardCore.AutoSetup");
+        }
+    });
 // // Orchard Specific Pipeline
 // .ConfigureServices( services => {
 // })
