@@ -1,4 +1,4 @@
-﻿using Confiti.MoySklad.Remap.Api;
+using Confiti.MoySklad.Remap.Api;
 using Confiti.MoySklad.Remap.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -146,7 +146,7 @@ namespace OrchardCore.Moysklad.Controllers
             {
                 var response = await api.GetAllAsync(query);
 
-                return View();
+                return Forbid(); //TODO: Реализовать!
             }
             catch (ApiException ex)
             {
