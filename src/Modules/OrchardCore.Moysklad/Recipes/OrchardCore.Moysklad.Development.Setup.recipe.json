@@ -60,6 +60,9 @@
         "OrchardCore.Users.CustomUserSettings",
         "OrchardCore.Widgets",
 
+        "OrchardCore.Workflows",
+        "OrchardCore.Workflows.Http",
+
         "OrchardCore.Moysklad",
 
         // Themes
@@ -72,6 +75,46 @@
       "name": "themes",
       "admin": "TheAdmin",
       "site": "TheTheme"
+    },
+    {
+      "name": "Roles",
+      "Roles": [
+        {
+          "Name": "Administrator",
+          "Description": "Administrator",
+          "Permissions": []
+        },
+        {
+          "Name": "Moderator",
+          "Description": "Moderator",
+          "Permissions": []
+        },
+        {
+          "Name": "Editor",
+          "Description": "Editor",
+          "Permissions": []
+        },
+        {
+          "Name": "Author",
+          "Description": "Author",
+          "Permissions": []
+        },
+        {
+          "Name": "Contributor",
+          "Description": "Contributor",
+          "Permissions": []
+        },
+        {
+          "Name": "Authenticated",
+          "Description": "Authenticated",
+          "Permissions": []
+        },
+        {
+          "Name": "Anonymous",
+          "Description": "Anonymous",
+          "Permissions": []
+        }
+      ]
     },
     {
       "name": "recipes",
