@@ -49,11 +49,14 @@ namespace OrchardCore.Moysklad
             services.AddContentPart<MoyskladAssortmentQueryPart>()
                     .UseDisplayDriver<AssortmentQueryPartDisplayDriver>();
 
+            services.AddContentPart<MoyskladProductFolderPart>();
+            services.AddContentPart<MoyskladProductPart>();
+
             // Migrations:
             services.AddDataMigration<MigrationAssortmentQuery>();
             services.AddDataMigration<MigrationAssortmentQueryPart>();
-
-
+            services.AddDataMigration<MigrationProductFolderPart>();
+            services.AddDataMigration<MigrationProductPart>();
 
 
 
